@@ -7,8 +7,9 @@ path_json = 'data_raw/dados_empresaA.json'
 path_csv = 'data_raw/dados_empresaB.csv'
 
 # Extract
-dados_empresaA = Dados(path_json, 'json')
-dados_empresaB = Dados(path_csv, 'csv')
+dados_empresaA = Dados.leitura_dados(path_json, 'json')
+
+dados_empresaB= Dados.leitura_dados(path_csv, 'csv')
 
 print(f"Nome colunas dados json: {dados_empresaA.nome_colunas}")
 print(f"Tamanho dos dados json: {dados_empresaA.qtd_linhas}")
