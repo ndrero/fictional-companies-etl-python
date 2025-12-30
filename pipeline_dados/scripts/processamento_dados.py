@@ -7,16 +7,16 @@ class Dados:
         self.path = path
         self.tipo_arquivo = tipo_arquivo
         self.dados = self.leitura_dados()
-        self.nome_colunas = self.get_columns()
-        self.qtd_linhas = self.size_data()
+        self.nome_colunas = self.__get_columns()
+        self.qtd_linhas = self.__size_data()
         
-    def leitura_json(self):
+    def __leitura_json(self):
         dados_json = []
         with open(self.path, 'r') as file:
             dados_json = json.load(file)
         return dados_json
 
-    def leitura_csv(self):
+    def __leitura_csv(self):
 
         dados_csv = []
         with open(self.path, 'r') as file:
@@ -30,10 +30,10 @@ class Dados:
         dados = []
 
         if self.tipo_arquivo == 'csv':
-            dados = self.leitura_csv()
+            dados = self.__leitura_csv()
         
         elif self.tipo_arquivo == 'json':
-            dados = self.leitura_json()
+            dados = self.__leitura_json()
 
         elif self.tipo_arquivo == 'list':
             dados = self.path
@@ -41,7 +41,7 @@ class Dados:
 
         return dados
 
-    def get_columns(self):
+    def __get_columns(self):
         return list(self.dados[-1].keys())
 
     def rename_columns(self, key_mapping):
@@ -54,9 +54,9 @@ class Dados:
             new_dados_csv.append(dict_temp)
         
         self.dados = new_dados_csv
-        self.nome_colunas = self.get_columns()
+        self.nome_colunas = self.__get_columns()
 
-    def size_data(self):
+    def __size_data(self):
         return len(self.dados)
 
 
@@ -66,7 +66,7 @@ class Dados:
         combined_list.extend(dadosB.dados)
         return Dados(combined_list, 'list')
     
-    def transformando_dados_tabela(self):
+    def __transformando_dados_tabela(self):
     
         dados_combinados_tabela = [self.nome_colunas]
 
@@ -79,7 +79,7 @@ class Dados:
         return dados_combinados_tabela
 
     def salvando_dados(self, path): 
-        dados_combinados = self.transformando_dados_tabela()
+        dados_combinados = self.__transformando_dados_tabela()
         with open(path, 'w') as file:
             writer = csv.writer(file)
             writer.writerows(dados_combinados)
